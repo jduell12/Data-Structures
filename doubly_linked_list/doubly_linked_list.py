@@ -64,7 +64,25 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_head(self):
-        pass
+        #check if list is empty
+        if self.length == 0:
+            return None
+        #check if one element in list
+        elif self.length == 1:
+            #save the value we are removing to return later
+            removed = self.head.value
+            #set the head and tail to none since we are removing the only element in the list
+            self.head = None
+            self.tail = None
+            self.length -= 1
+            #return removed value
+            return removed
+        else:
+            old_head = self.head 
+            self.head = old_head.next 
+            self.head.prev = None
+            self.length -= 1
+            return old_head.value
             
     """
     Wraps the given value in a ListNode and inserts it 
@@ -72,7 +90,34 @@ class DoublyLinkedList:
     the old tail node's next pointer accordingly.
     """
     def add_to_tail(self, value):
-        pass
+        #creates new node with given value
+        new_node = ListNode(value)
+        
+        #check if empty list
+        if self.length == 0:
+            #set new node as head and tail
+            self.head = new_node
+            self.tail = new_node
+        #check if one element in list
+        elif self.length == 1:
+            #set new node as tail
+            self.tail = new_node
+            #set tail prev as current head
+            self.tail.prev = self.head
+            #set current head next as current tail
+            self.head.next = self.tail
+        else:
+            #save old tail into a variable
+            old_tail = self.tail
+            #set new node as the current tail
+            self.tail = new_node
+            #set the old tail next to point to the current tail
+            old_tail.next = self.tail
+            #set the current tail previous to point to the old tail
+            self.tail.prev = old_tail  
+        
+        #increase length of list
+        self.length += 1
             
     """
     Removes the List's current tail node, making the 
