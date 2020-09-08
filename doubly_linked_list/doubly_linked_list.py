@@ -153,10 +153,9 @@ class DoublyLinkedList:
     def move_to_front(self, node):
        #check that length has more than 1 element
        if self.length > 1:
-           move_node = node 
            old_head = self.head 
-           old_head.prev = move_node
-           self.head = move_node
+           old_head.prev = node
+           self.head = node
            self.head.prev = None
            self.head.next = old_head
         
@@ -165,7 +164,31 @@ class DoublyLinkedList:
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        pass
+        #checks that list has more than 1 element
+        if self.length > 1:
+            #checks if node is head
+            if self.head == node:
+                #changes the head to the next node in the list
+                self.head = node.next 
+                self.head.prev = None 
+                #saves the old tail node as a variable
+                old_tail = self.tail
+                #set old tail next as new tail
+                old_tail.next = node
+                #set node as new tail
+                self.tail = node
+                #set current tail next as None and prev as old tail
+                self.tail.next = None
+                self.tail.prev = old_tail
+            else:
+                old_tail = self.tail
+                #set old tail next as new tail
+                old_tail.next = node
+                #set node as new tail
+                self.tail = node
+                #set current tail next as None and prev as old tail
+                self.tail.next = None
+                self.tail.prev = old_tail
 
     """
     Deletes the input node from the List, preserving the 
