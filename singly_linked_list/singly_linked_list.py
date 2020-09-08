@@ -2,7 +2,6 @@ class Node:
     def __init__(self, value, next=None):
         self.value = value
         self.next = next
-        self.length = 0
 
 
 class LinkedList:
@@ -25,7 +24,6 @@ class LinkedList:
             old_tail.next = new_tail
             # set self.tail to new node
             self.tail = new_tail
-        self.length += 1
 
     # remove
     def remove_head(self):
@@ -41,15 +39,52 @@ class LinkedList:
             # set self.tail to None
             self.tail = None
             # decrease length by 1
-            self.length -= 1
             return current_head.value
         else:
             # set self.head to current_head.next
             current_head = self.head
             self.head = current_head.next
-            self.length -= 1
             # return current_head value
             return current_head.value
 
     def remove_tail(self):
-        pass
+        # check if list is empty
+        if not self.head:
+            # return none
+            return None
+        # check if one element in list
+        elif self.head == self.tail:
+            # save the current tail value
+            current_tail = self.tail
+            # set self.tail and self.head to None
+            self.tail = None
+            self.head = None
+            # return the value of the node that was removed
+            return current_tail.value
+        else:
+            # start at head and iterate to the next to last node
+            last_node = self.head
+            while last_node.next.next != None:
+                last_node = last_node.next
+
+            # save the current tail value
+            old_tail = self.tail
+
+            # set self.tail to current node
+            self.tail = last_node
+
+            # set current node next to None
+            self.tail.next = None
+
+            # return the value of the node that was removed
+            return old_tail.value
+
+    def printList(self):
+        if not self.head:
+            print('No items')
+        else:
+            last_node = self.head
+            while last_node != self.tail:
+                print(last_node.value)
+                last_node = last_node.next
+            print(last_node.value)

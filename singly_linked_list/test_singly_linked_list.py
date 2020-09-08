@@ -26,17 +26,17 @@ class LinkedListTests(unittest.TestCase):
         self.assertIsNone(self.list.tail)
         self.assertIsNone(self.list.remove_head())
 
-    # def test_remove_tail(self):
-    #     self.list.add_to_tail(30)
-    #     self.list.add_to_tail(40)
-    #     self.assertEqual(self.list.remove_tail(), 40)
-    #     self.assertEqual(self.list.remove_tail(), 30)
+    def test_remove_tail(self):
+        self.list.add_to_tail(30)
+        self.list.add_to_tail(40)
+        self.assertEqual(self.list.remove_tail(), 40)
+        self.assertEqual(self.list.remove_tail(), 30)
 
-    #     self.list.add_to_tail(100)
-    #     self.assertEqual(self.list.remove_tail(), 100)
-    #     self.assertIsNone(self.list.head)
-    #     self.assertIsNone(self.list.tail)
-    #     self.assertIsNone(self.list.remove_tail())
+        self.list.add_to_tail(100)
+        self.assertEqual(self.list.remove_tail(), 100)
+        self.assertIsNone(self.list.head)
+        self.assertIsNone(self.list.tail)
+        self.assertIsNone(self.list.remove_tail())
 
 
 if __name__ == '__main__':
