@@ -24,13 +24,17 @@ class LRUCache:
     def get(self, key):
         #checks if key is in the dictionary
         if key in self.storage:
-           #move the node to the front 
            current_node = self.dlist.head
-           while current_node != None:
-               if current_node.value == key:
-                   break
-               else:
-                   current_node = current_node.next
+           count = 0
+           while count < self.limit:
+               if current_node:
+                  if current_node.value == key:
+                      break
+                  else:
+                      current_node = current_node.next
+               count += 1
+           #move node to front
+           self.dlist.move_to_front(current_node)
            return self.storage[key]
         else:
             return None
