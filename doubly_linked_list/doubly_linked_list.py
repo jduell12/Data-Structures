@@ -246,3 +246,11 @@ class DoublyLinkedList:
             if max_value < current_node.value:
                 max_value = current_node.value
         return max_value
+    """
+    Prints the doubly linked list
+    """
+    def print(self):
+        self = self.head
+        while self != None:
+            print(self.value)
+            self = self.next
