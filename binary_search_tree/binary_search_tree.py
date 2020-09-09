@@ -29,19 +29,40 @@ class BSTNode:
         if value < self.value:
             #check if left node space is open
             if self.left == None:
+                #add new node to left
                 self.__add_left__(value)
             else:
+                #check the value of the left node to the value we want to insert
                 self.left.insert(value)
         else:
+            #check if right node space is open
             if self.right == None:
+                #add new node to right 
                 self.__add_right__(value)
             else:
+                #check the value of the right node to the value we want to insert 
                 self.right.insert( value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        while self.value != target:
+            #check left side of node
+            if self.value > target:
+                #if there is a left child node set the self to the child and loop again
+                if self.left:
+                    self = self.left
+                else:
+                    return False
+            #check right side of node
+            else:
+                #if there is a right child node set the self to the child node and loop again
+                if self.right:
+                    self = self.right
+                else:
+                    return False
+        return True
+                
 
     # Return the maximum value found in the tree
     def get_max(self):
