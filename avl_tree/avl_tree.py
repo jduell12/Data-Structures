@@ -1,3 +1,7 @@
+import sys
+sys.path.append('../stack/')
+from stack import Stack
+
 """
 Node class to keep track of
 the data internal to individual nodes
@@ -36,11 +40,37 @@ class AVLTree:
                 self.node.right.display(level + 1, '>')
 
     """
+    Finds the number of nodes along the longest path from the root down to the farthest leaf node
+    """
+    def maxDepth(self):
+        #get root node
+        node = self.node
+        #initialize left and right depths
+        leftDepth = -1
+        rightDepth = -1
+        #if tree is empty return 0
+        if not node:
+            return 0
+        else:
+            #check for left child
+            if node.left:
+                #get the depth of left child
+                leftDepth = node.left.maxDepth()
+            #check for right child
+            if node.right:
+                #get depth of right child
+                rightDepth = node.right.maxDepth()
+        #find which depth is larger
+        if leftDepth > rightDepth:
+            return (leftDepth + 1)
+        else:
+            return (rightDepth + 1)
+    """
     Computes the maximum number of levels there are
     in the tree
     """
     def update_height(self):
-        pass
+        self.height = self.maxDepth()
 
     """
     Updates the balance factor on the AVLTree class
