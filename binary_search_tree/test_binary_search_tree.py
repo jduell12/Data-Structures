@@ -80,10 +80,10 @@ class BinarySearchTreeTests(unittest.TestCase):
         self.bst.insert(4)
         self.bst.insert(2)
 
-        # self.bst.in_order_print()
+        self.bst.in_order_print()
 
-        # output = sys.stdout.getvalue()
-        # self.assertEqual(output, "1\n2\n3\n4\n5\n6\n7\n8\n")
+        output = sys.stdout.getvalue()
+        self.assertEqual(output, "1\n2\n3\n4\n5\n6\n7\n8\n")
 
         sys.stdout = io.StringIO()
         self.bst.bft_print()
@@ -97,10 +97,10 @@ class BinarySearchTreeTests(unittest.TestCase):
         self.assertTrue(output == "1\n8\n5\n7\n6\n3\n4\n2\n" or
                         output == "1\n8\n5\n3\n2\n4\n7\n6\n")
 
-        # sys.stdout = io.StringIO()
-        # self.bst.pre_order_dft()
-        # output = sys.stdout.getvalue()
-        # self.assertEqual(output, "1\n8\n5\n3\n2\n4\n7\n6\n")
+        sys.stdout = io.StringIO()
+        self.bst.pre_order_dft()
+        output = sys.stdout.getvalue()
+        self.assertEqual(output, "1\n8\n5\n3\n2\n4\n7\n6\n")
 
         # sys.stdout = io.StringIO()
         # self.bst.post_order_dft()
