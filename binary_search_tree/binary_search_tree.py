@@ -118,8 +118,18 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
-
-        pass
+        #check if the node exists
+        if self:
+            #check for left child
+            if self.left:
+                #go to left child
+                self.left.in_order_print()
+            #print the node's value
+            print(self.value)
+            #check for right child
+            if self.right:
+                #go to right child
+                self.right.in_order_print()
         
 
     # Print the value of every node, starting with the given node,
