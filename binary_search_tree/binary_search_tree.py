@@ -9,6 +9,10 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+import sys
+sys.path.append('../stack/')
+from stack import Stack
+
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -89,7 +93,9 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
+
         pass
+        
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
@@ -99,7 +105,22 @@ class BSTNode:
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
-        pass
+        #create an empty stack
+        stack = Stack()
+        #push starting node on stack
+        stack.push(self)
+        #while stack is not empty
+        while stack.size != 0:
+            #pop the current node
+            current = stack.pop()
+            #print the value
+            print(current.value)
+            #if node has left child push left child onto stack
+            if current.left:
+                stack.push(current.left)
+            #if node has right child push right child onto stack
+            if current.right:
+                stack.push(current.right)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
@@ -115,23 +136,23 @@ class BSTNode:
 """
 This code is necessary for testing the `print` methods
 """
-# bst = BSTNode(1)
+bst = BSTNode(1)
 
-# bst.insert(8)
-# bst.insert(5)
-# bst.insert(7)
-# bst.insert(6)
-# bst.insert(3)
-# bst.insert(4)
-# bst.insert(2)
+bst.insert(8)
+bst.insert(5)
+bst.insert(7)
+bst.insert(6)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
 
-# bst.bft_print()
-# bst.dft_print()
+bst.bft_print()
+bst.dft_print()
 
-# print("elegant methods")
-# print("pre order")
-# bst.pre_order_dft()
-# print("in order")
-# bst.in_order_print()
-# print("post order")
-# bst.post_order_dft()  
+print("elegant methods")
+print("pre order")
+bst.pre_order_dft()
+print("in order")
+bst.in_order_print()
+print("post order")
+bst.post_order_dft()  
