@@ -74,9 +74,19 @@ class AVLTree:
 
     """
     Updates the balance factor on the AVLTree class
+    balance factor = height(left-child) - height(right-child)
     """
     def update_balance(self):
-        pass
+        balance = self.balance 
+        
+        if self.node.left and self.node.right:
+            balance = self.node.left.maxDepth() - self.node.right.maxDepth()
+        elif self.node.left:
+            balance = self.node.left.maxDepth() - 0
+        elif self.node.right:
+            balance = 0 - self.node.right.maxDepth()
+            
+        self.balance = balance 
 
     """
     Perform a left rotation, making the right child of this
@@ -86,16 +96,16 @@ class AVLTree:
     def left_rotate(self):
         oldRoot = self.node 
         newRoot = self.node.right.node 
-        oldLeftChild = self.node.right.node.left.node
+        if self.node.right.node.left:
+            oldLeftChild = self.node.right.node.left.node
         
         #set new root as the root of the tree
         self.node = newRoot 
         #set the old root as the new root's left child
         self.node.left.node = oldRoot 
         #set the old left child of the new root as the right child of the new left child
-        self.node.left.node.right.node = oldLeftChild
-        
-            
+        if self.node.right.node.left:
+            self.node.left.node.right.node = oldLeftChild
         
 
     """
@@ -104,20 +114,75 @@ class AVLTree:
     of the new parent. 
     """
     def right_rotate(self):
-        pass
+        oldRoot = self.node 
+        newRoot = self.node.left.node 
+        if self.node.left.node.right.node :
+            oldRightChild = self.node.left.node.right.node 
+        
+        #set new root as the root of the tree
+        self.node = newRoot
+        #set the old root as the new root's right child 
+        self.node.right.node = oldRoot
+        #set the old left child of the new root as the leftchild of the new right child
+        if self.node.left.node.right.node: 
+            self.node.right.node.left.node = oldRightChild
 
     """
     Sets in motion the rebalancing logic to ensure the
     tree is balanced such that the balance factor is
     1 or -1
+    balance factor = height(left-child) - height(right-child)
     """
     def rebalance(self):
-        pass
-        
+        tree_height = self.maxDepth()
+        #left left 
+        if tree_height > 1 and self.node.key < self.node.left.node.key:
+            self.right_rotate()
+        #right right
+        elif tree_height < -1 and self.node.key > self.node.right.node.key:
+            self.left_rotate()
+        #left right
+        elif tree_height > 1 and self.node.key > self.node.left.node.key:
+            self.node.left.left_rotate()
+            self.right_rotate()
+        #right left 
+        elif tree_height < -1 and self.node.key < self.node.right.node.key:
+            self.node.right.right_rotate()
+            self.left_rotate()
+    
     """
     Uses the same insertion logic as a binary search tree
     after the value is inserted, we need to check to see
     if we need to rebalance
     """
     def insert(self, key):
-        pass
+        #insert like normal BST
+        if self.node:
+            if key < self.node.key:
+                if not self.node.left:
+                    self.node.left = AVLTree(Node(key))
+                else:
+                    self.node.left.insert(key)
+            else:
+                if not self.node.right:
+                    self.node.right = AVLTree(Node(key))
+                else:
+                    self.node.right.insert(key)
+        else:
+            self.node = Node(key)
+        
+        # print('root: ', self.node.key)
+        # if self.node.left:
+        #     print('left child: ', self.node.left.node.key)
+        # if self.node.right:
+        #     print('right child: ', self.node.right.node.key)
+            
+        self.update_balance()
+        print('balance: ', self.balance)
+        
+        if self.balance > 1 or self.balance < -1:
+            self.rebalance()
+            self.update_balance()
+            print('balance: ', self.balance)
+        
+        
